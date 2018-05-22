@@ -1,7 +1,7 @@
 #!/usr/bin/env python
 # -*- coding: utf-8 -*-
 
-from flask import Flask, request
+from flask import Flask, request, url_for
 import base64
 import time
 import random
@@ -48,6 +48,23 @@ def test():
         return 'data'
     else:
         return 'error'
+
+
+@app.route('/user/<id>')
+def user_id(id):
+    return 'hello_user'+id
+
+
+@app.route('/query_user')
+def query_user():
+    id1 = request.args.get('id')
+    return 'query user'+id1
+
+
+# 反向路由
+@app.route('query_url')
+def query_url():
+    return 'query url:'+url_for('query_user')
 
 
 if __name__ == '__main__':
